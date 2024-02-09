@@ -9,6 +9,7 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,5 +35,11 @@ public class JobController {
 			e.printStackTrace();
 
 		}
+	}
+
+	@Scheduled(cron = "0 15 11 * * ?") // Execute at 11:15 AM every day
+	public void scheduledImportCsvToDBJob() {
+		System.out.println("Scheduled task executed at: ");
+		importCsvToDBJob();
 	}
 }
